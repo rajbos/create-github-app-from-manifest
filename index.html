@@ -1,0 +1,34 @@
+<br />
+<br />
+<form action="https://github.com/organizations/rajbos-actions-demo/settings/apps/new?state=newlycreated" method="post">
+    Create a GitHub App from this Manifest: <br /> 
+    <textarea cols="100" title="manifest" type="text" name="manifest" id="manifest" style="height: 350; width: 500; word-break: break-word;"></textarea><br />
+    <br />
+    <input type="submit" value="Submit">
+</form>
+   
+<script>
+    input = document.getElementById("manifest")
+    input.value = JSON.stringify({
+        "name": "Octoapp",
+        "url": "https://www.example.com",
+        "hook_attributes": {
+        "url": "https://example.com/github/events",
+        },
+        "redirect_url": "http://localhost:801/Manifest/redirect.html",
+        "callback_urls": [
+        "https://example.com/callback"
+        ],
+        "public": false,
+        "default_permissions": {
+        "issues": "write",
+        "checks": "write"
+        },
+        "default_events": [
+        "issues",
+        "issue_comment",
+        "check_suite",
+        "check_run"
+        ]
+}, null, 2)
+</script>
