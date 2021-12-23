@@ -1,0 +1,67 @@
+<script lang="javascript">
+
+    function showInfo(xhr) {
+        console.log(`Return status: ` + xhr.status);
+        console.log(`Return text:` + xhr.responseText);
+
+        appName = document.getElementById("name")
+        appId = document.getElementById("appId")
+        pemKey = document.getElementById("pemKey")
+        
+        appName.innerHTML = JSON.parse(xhr.responseText).slug;
+        appId.innerHTML = JSON.parse(xhr.responseText).id;
+        pemKey.value = JSON.parse(xhr.responseText).pem;
+
+        waiting = document.getElementById("waiting")
+        waiting.style.display = "none";
+    }
+
+    const queryString = window.location.search;
+    const urlParams = new URLSearchParams(queryString);
+    const code = urlParams.get('code');
+    const state = urlParams.get('state');
+
+    console.log(`Found this code: [${code}] with this state: [${state}]`);
+
+    // post to github and retrieve appId and PEM key
+    const apiUrl = `https://api.github.com/app-manifests/${code}/conversions`;    
+    var xhr = new XMLHttpRequest();
+    xhr.onreadystatechange = function () {
+        if (xhr.readyState === 4) {
+            const timeout = setTimeout(showInfo(xhr), 7500);
+        }
+        else {
+            waiting = document.getElementById("waiting")
+            waiting.innerHTML = "Error retrieving the information: " + xhr.status + " - " + xhr.responseText;
+        }
+    };
+    xhr.open("POST", apiUrl);        
+    xhr.send();
+
+</script>
+
+<br/ >
+<br/ >
+<br/ >
+<div id="waiting" style="font-weight: 600;">Give us a second to retrieve the information</div>
+<br/ >
+<br/ >
+
+<table>
+    <tr>
+        <td>Name:</td> <td><label id="name"></label><br/></td>
+    </tr>
+    <tr> 
+        <td>AppId:</td> <td><label id="appId"></label><br/></td>
+    </tr>
+    <tr>
+        <td>PEM Key: </td>
+        <td>
+            <textarea id="pemKey" style="height: 425; width: 500; word-break: break-word;"></textarea>
+        </td>
+    </tr>
+</table>
+<br />
+<div style="font-weight: 600;">
+    Store this data somewhere safe!
+</div>
