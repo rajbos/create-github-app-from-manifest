@@ -1,5 +1,6 @@
 {
     "baseUrl": "https://github.com",
+    "apiUrl": "https://api.github.com",
     "environments":
     [
         "rajbos-actions-demo",
