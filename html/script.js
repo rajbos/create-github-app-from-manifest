@@ -1,6 +1,6 @@
 function updateFormUrl() {
     environment = document.getElementById("environment").value
-    document.getElementById("form").action = "https://github.com/organizations/" + environment + "/settings/apps/new?state=newlycreated"
+    document.getElementById("form").action = baseUrl + "/organizations/" + environment + "/settings/apps/new?state=newlycreated"
 }
 
 function loadFile(url, isJson, callback) {
@@ -19,14 +19,37 @@ function loadFile(url, isJson, callback) {
     xobj.send(null);  
 }
 
+var baseUrl = "";
+
+function loadEnvironments() {
+    fileLocation = "environments.json"
+    loadFile(fileLocation, false, function(response) {
+        //console.log('found file with content' + response);
+
+        json = JSON.parse(response);
+        
+        for(var i = 0; i < json.environments.length; i++) {
+            environment = json.environments[i]
+            
+            option = document.createElement("option")
+            option.value = environment
+            option.innerHTML = environment
+            document.getElementById("environment").appendChild(option)
+        }
+        
+        // make sure we have set the postback url:
+        baseUrl = json.baseUrl
+        updateFormUrl();   
+    });
+}
+
 function initPage() {
-    // make sure we have set the postback url:
-    updateFormUrl();   
+    loadEnvironments()
 
     // load the manifest
     jsonFileToUrl = "manifest1.json"
     loadFile(jsonFileToUrl, false, function(response) {
-        console.log('found file with content' + response);
+        //console.log('found file with content' + response);
         
         // remove everything behind the last "/""
         url = window.location.href

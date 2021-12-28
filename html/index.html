@@ -1,9 +1,7 @@
 <br />
 <br />
 <label for="environment">Environment:</label>
-<select id="environment" onchange="updateFormUrl()">
-    <option>rajbos-actions-demo</option>
-    <option>rajbos-actions</option>
+<select id="environment" onchange="updateFormUrl()">   
 </select>
 <br />
 <br />
@@ -16,33 +14,6 @@
 </form>
    
 <script type="text/javascript" src="script.js"></script>
-<script>
-    currentUrl = window.location.href + "redirect.html";     
-
-    input = document.getElementById("manifest")
-    input.value = JSON.stringify({
-        "name": "Octoapp",
-        "url": "https://www.example.com",
-        "hook_attributes": {
-        "url": "https://example.com/github/events",
-        },
-        "redirect_url": currentUrl,
-        "callback_urls": [
-            "https://example.com/callback"
-        ],
-        "public": false,
-        "default_permissions": {
-        "issues": "write",
-        "checks": "write"
-        },
-        "default_events": [
-        "issues",
-        "issue_comment",
-        "check_suite",
-        "check_run"
-        ]
-    }, null, 2)
-
-    initPage();
-    
+<script type="text/javascript">
+  initPage();
 </script>

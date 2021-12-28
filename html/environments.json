@@ -1,0 +1,9 @@
+{
+    "baseUrl": "https://github.com",
+    "environments":
+    [
+        "rajbos-actions-demo",
+        "rajbos-actions",
+        "rajbos"
+    ]
+}
