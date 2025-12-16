@@ -62,7 +62,7 @@ function loadEnvironments() {
                 
                 option = document.createElement("option")
                 option.value = environment
-                option.innerHTML = environment
+                option.textContent = environment
                 envSelect.appendChild(option)
             }
              // make sure we have set the postback url:
